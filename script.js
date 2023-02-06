@@ -140,3 +140,94 @@ const { dev: { gameEngine: { engineName } } } = videogame
 
 console.log(engineName)
 console.log(videogame.dev.gameEngine.engineName)
+
+
+
+
+const data = {
+  name: {
+    firstName: 'ana',
+    lastName: 'marino',
+  },
+  isStudent: true,
+  favoriteFootballTeam: 'fc barcelona',
+  hometown: {
+    city: 'buenos aires',
+    country: 'argentina',
+  },
+};
+
+
+// const { firstName, lastName } = data.name;
+const { name: { firstName, lastName }, favoriteFootballTeam, hometown: { city, country }  } = data;
+
+
+
+// Operadores Spread y Rest
+
+// SPREAD => Esparcir. => ...
+
+const arrNum = [ 4, 8, 15, 16, 23, 42 ];
+
+console.log(...arrNum)
+console.log( 4, 8, 15, 16, 23, 42 )
+
+// 1. para usar en metodos que requieren valores esparcidos
+
+console.log( Math.max(7, 10, 24) )
+
+console.log( Math.max( ...arrNum )) // esparcimos todos los elementos del arr
+
+console.log( Math.min( ...arrNum ))
+
+
+// 2. concatenar arrays
+const students = ["Dagmara", "Patricio", "Pilar"];
+const staff = ["Carolina", "Adria"]
+
+// nuevo arr con todos los elementos
+// console.log(students + staff)
+
+const everyone = [ ...students, ...staff, "Jose Luis", "Alvaro" ]
+console.log(everyone)
+
+// 3. clonar arrays
+const originalArr = [ 4, 8, 15, 16, 23, 42 ];
+
+const clone = [...originalArr]
+
+console.log(clone.reverse())
+console.log(originalArr)
+
+
+const somePeople = [
+  {
+    name: "Carolina", 
+    candy: 20,
+  }, // ref abcd
+  {
+    name: "Adria", 
+    candy: 22,
+  }, // ref xywe
+  {
+    name: "Jorge", 
+    candy: 10,
+  } // ref qwer
+] // ref. 1234
+
+// const clonePeople = [...somePeople] // shallow clone (superficial)
+const clonePeople = structuredClone(somePeople) // deep clone (profundo)
+
+clonePeople.pop()
+console.log(clonePeople)
+console.log(somePeople)
+
+clonePeople[0].candy = 1000; // ref abcd
+console.log(clonePeople)
+console.log(somePeople)
+// operador spread se considera clone shallow => solo clona la referencia del primer nivel del array/obj
+// map, es otro shallow clone
+
+// estructuredClone()
+// json parse json stringify
+// harian deep clone. Clonan TODOS los niveles del arr/obj
