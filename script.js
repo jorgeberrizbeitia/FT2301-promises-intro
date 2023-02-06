@@ -434,23 +434,71 @@ function requestBookPromise(bookIndex) {
 
 // receptor en España
 
-console.log( requestBookPromise(0) )
+// console.log( requestBookPromise(0) )
 // pending => esta siendo procesada
 // fulfilled => ha sido aceptada/enviada
 // rejecte => ha sido rechazada/cancelada
 
 // .then() / .catch()
 
-requestBookPromise(6)
-.then((response) => {
-  console.log(response) // libro 1
-  // encadenar promesas => retornar la nueva promesa
-  return requestBookPromise(1)
-})
-.then((response) => {
-  console.log(response);
-  return requestBookPromise(2)
-})
+// requestBookPromise(0)
+// .then((response) => {
+//   console.log(response) // libro 1
+//   // encadenar promesas => retornar la nueva promesa
+//   return requestBookPromise(1)
+// })
+// .then((response) => {
+//   console.log(response);
+//   return requestBookPromise(2)
+// })
+// .then((response) => {
+//   console.log(response)
+// })
+// .catch((error) => {
+//   console.log(error)
+// })
+
+
+// async / await => try/catch
+
+// async que crea una funcion que tendrá elementos asincronos
+
+async function getLOTRBooks() {
+  // en esta funcion habrá elementos asincronos
+
+  try {
+    const response1 = await requestBookPromise(0)
+    // await es espera en este punto antes de hacer el console.log()
+    console.log("leyendo", response1)
+  
+    const response2 = await requestBookPromise(1)
+    console.log("leyendo", response2)
+
+    const response3 = await requestBookPromise(2)
+    console.log("leyendo", response3)
+  
+    const response4 = await requestBookPromise(3)
+    console.log("leyendo", response4)
+  }
+  catch (error) {
+    console.log(error)
+  }
+
+
+}
+
+// getLOTRBooks()
+
+
+
+// cuando queremos resolver promesas pero todas juntas.
+// Promise.all => recibe un arr de promesas
+// Si una de las promesas falla, toda la ejecución va al catch.
+Promise.all([
+  requestBookPromise(6),
+  requestBookPromise(1),
+  requestBookPromise(2)
+])
 .then((response) => {
   console.log(response)
 })
@@ -458,3 +506,15 @@ requestBookPromise(6)
   console.log(error)
 })
 
+// Promise.allSettled => recibe un array de promesas
+// siempre retorna cada resultado de la promesa con sus status
+// no importa que alguna de ellas falle.
+
+Promise.allSettled([
+  requestBookPromise(6),
+  requestBookPromise(1),
+  requestBookPromise(2)
+])
+.then((response) => {
+  console.log(response)
+})
