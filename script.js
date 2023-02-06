@@ -268,3 +268,193 @@ function checkIfSumIsTen(...allNumbers) {
 }
 
 console.log( checkIfSumIsTen(5, 3, 2) )
+
+
+// Actividad 1.
+
+
+const students2 = [
+  {
+    name: 'ana',
+    score: 5.4
+  },
+  {
+    name: 'ivan',
+    score: 7.5
+  },
+  {
+    name: 'milo',
+    score: 4.3
+  },
+  {
+    name: 'igor',
+    score: 7.0
+  },
+  {
+    name: 'george',
+    score: 8.9
+  },
+  {
+    name: 'jess',
+    score: 10.0
+  },
+  {
+    name: 'kevin',
+    score: 8.8
+  },
+  {
+    name: 'beth',
+    score: 7.1
+  }
+];
+
+
+function sortByScore(arr) {  
+  // .. your code here
+  // shallow clone the original `arr` before sorting
+  
+  // shallow clone is [...arr]
+  // deep clone is structuredClone(arr) or JSON.parse(JSON.stringify(arr))
+
+  const clone = [...arr]
+  // clone.sort((elem2, elem1) => {
+  //   if (elem2.score < elem1.score) {
+  //     return 1
+  //   } else if (elem2.score > elem1.score) {
+  //     return -1
+  //   } else {
+  //     return 0
+  //   }
+  // })
+
+  clone.sort((elem2, elem1) => elem1.score - elem2.score)
+
+  // console.log(clone)
+
+  const [firstPlace, secondPlace, thirdPlace, ...others ] = clone
+
+  return {
+    firstPlace,
+    secondPlace,
+    thirdPlace,
+    others
+  }
+
+  
+  // you can return the object or simply console.log the 4 values.
+}
+
+console.log ( sortByScore(students2) );
+
+// Expected Output from the function => 
+// {
+//   firstPlace: { name: 'jess', score: 10 },
+//   secondPlace: { name: 'george', score: 8.9 },
+//   thirdPlace: { name: 'kevin', score: 8.8 },
+//   others: [
+//     { name: 'ivan', score: 7.5 },
+//     { name: 'beth', score: 7.1 },
+//     { name: 'igor', score: 7 },
+//     { name: 'ana', score: 5.4 },
+//     { name: 'milo', score: 4.3 }
+//   ]
+// }
+
+
+
+// Base de datos en China
+function requestBook(bookIndex, callback, callbackError) {
+
+  const allBooks = [
+    "1. La comunidad del anillo",
+    "2. Las dos Torres",
+    "3. El retorno del rey"
+  ]
+
+
+}
+
+// const book = requestBook(1)
+// console.log(book)
+
+// un repo en España
+// function getResponse(data) {
+//   console.log(data)
+// }
+
+requestBook(0, (data) => {
+  console.log(data)
+  requestBook(1, (data) => {
+    console.log(data)
+    requestBook(2, (data) => {
+      console.log(data)
+      requestBook(3, (data) => {
+        console.log(data)
+      }, (error) => {
+        console.log(error)
+      })
+    }, (error) => {
+      console.log(error)
+    })
+  }, (error) => {
+    console.log(error)
+  })
+}, (error) => {
+  console.log(error)
+})
+
+
+
+
+// PROMESAS
+
+// lugar en Australia
+function requestBookPromise(bookIndex) {
+
+  const allBooks = [
+    "1. La comunidad del anillo",
+    "2. Las dos Torres",
+    "3. El retorno del rey"
+  ]
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let theBook = allBooks[bookIndex]
+      if (theBook === undefined) {
+        reject("No existe libros en esa posición")
+      } else {
+        resolve(theBook)
+      }
+  
+    }, Math.random() * 2000) // 0 - 2000 ms
+  })
+}
+
+
+
+// receptor en España
+
+console.log( requestBookPromise(0) )
+// pending => esta siendo procesada
+// fulfilled => ha sido aceptada/enviada
+// rejecte => ha sido rechazada/cancelada
+
+// .then() / .catch()
+
+requestBookPromise(6)
+.then((response) => {
+  console.log(response) // libro 1
+  // encadenar promesas => retornar la nueva promesa
+  return requestBookPromise(1)
+})
+.then((response) => {
+  console.log(response);
+  return requestBookPromise(2)
+})
+.then((response) => {
+  console.log(response)
+})
+.catch((error) => {
+  console.log(error)
+})
+
