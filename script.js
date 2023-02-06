@@ -113,3 +113,30 @@ const myTopFiveFavouriteBooks = ["Dresden Files", "Locke and Key", "Lord of the 
 const [book1, book2, book3, book4, book5] = myTopFiveFavouriteBooks;
 
 console.log( `Mis libros favoritos son: ${book1}, ${book2}, ${book3}, ${book4} y ${book5}` )
+
+
+
+// destructuración compleja
+
+const videogame = {
+  gameName: "Hogwarts Legacy",
+  company: "Avalanche",
+  releaseDate: "10/02/23",
+  dev: {
+    gameEngine: {
+      engineName: "Unreal",
+    }
+  }
+}
+
+const { gameName, company, releaseDate = "No hay fecha de salida" } = videogame;
+// asignar valores predeterminados
+// si releaseDate existe. el valor es el de propiedad
+// si releaseDate no existe. entonces es "No hay fecha de salida"
+console.log(`${gameName}. Dessarrollado por: ${company}. Fecha de salida: ${releaseDate}`)
+
+
+const { dev: { gameEngine: { engineName } } } = videogame
+
+console.log(engineName)
+console.log(videogame.dev.gameEngine.engineName)
