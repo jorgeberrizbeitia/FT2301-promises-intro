@@ -225,9 +225,46 @@ console.log(somePeople)
 clonePeople[0].candy = 1000; // ref abcd
 console.log(clonePeople)
 console.log(somePeople)
-// operador spread se considera clone shallow => solo clona la referencia del primer nivel del array/obj
-// map, es otro shallow clone
 
-// estructuredClone()
-// json parse json stringify
-// harian deep clone. Clonan TODOS los niveles del arr/obj
+
+// SHALLOW CLONE => solo clona la referencia del primer nivel del array/obj
+// 1. operador Spread
+// 2. .map()
+
+// DEEP CLONE => Clonan TODOS los niveles del arr/obj
+// 1. estructuredClone()
+// 1. json parse & json stringify
+
+// Operador Rest => El resto de... => ...
+
+const hobbies = ["surfear", "cocinar", "leer", "jugar videojuegos"];
+
+const [ firstHobby, secondHobby, ...otherHobbies ] = hobbies
+//                                      |
+//                agrupar todos los demas elementos que no hayan sido destructurados
+console.log(firstHobby)
+console.log(secondHobby)
+
+console.log(otherHobbies)
+
+
+// crear funcion que sume los valores que pase como argumento y verifique si el resultado es 10.
+
+function checkIfSumIsTen(...allNumbers) {
+  //                            |
+  //          crear un arr, con todos los argumentos restantes
+  console.log(allNumbers)
+
+  const sum = allNumbers.reduce((acc, elem) => acc + elem, 0)
+
+  if (sum === 10) {
+    return `Es exactamente 10`
+  } else if (sum < 10) {
+    return `aun no has llegado a 10`
+  } else {
+    return `te has pasado de 10`
+  }
+
+}
+
+console.log( checkIfSumIsTen(5, 3, 2) )
