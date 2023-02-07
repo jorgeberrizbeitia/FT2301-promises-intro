@@ -518,3 +518,35 @@ Promise.allSettled([
 .then((response) => {
   console.log(response)
 })
+
+
+
+// Ejemplo real de promesas con fetch
+
+const btn = document.querySelector("#get-data")
+const logosContainer = document.querySelector("#logos")
+
+btn.addEventListener("click", () => {
+  console.log("click")
+
+  fetch("https://api.spacexdata.com/v5/launches")
+  .then((response) => {
+    // console.log(response)
+    return response.json()
+  })
+  .then((allLaunchesData) => {
+
+    let randomPos = Math.floor( Math.random() * allLaunchesData.length )
+
+    // console.log(allLaunchesData[randomPos].links.patch.small)
+
+    let logo = new Image()
+    logo.src = allLaunchesData[randomPos].links.patch.small
+    logosContainer.append(logo)
+
+  })
+  .catch((err) => {
+    console.log(err)
+  }) 
+
+})
